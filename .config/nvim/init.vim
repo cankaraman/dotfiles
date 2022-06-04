@@ -1,4 +1,5 @@
 "use yadm for dotfiles
+"add mappings for yadm commands
 "also install ripgrep
 " Download vim-plug and pathogen when vim runs for the very first time {{{
 " if empty(glob("~/.vim/autoload/plug.vim"))
@@ -31,8 +32,9 @@ Plug 'tpope/vim-repeat'
 Plug 'mfussenegger/nvim-dap'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-telescope/telescope-ui-select.nvim'
-
 Plug 'windwp/nvim-autopairs'
+Plug 'seanbreckenridge/yadm-git.vim'
+Plug 'airblade/vim-gitgutter'
 
 "autocomplete plugins
 Plug 'hrsh7th/cmp-nvim-lsp'
