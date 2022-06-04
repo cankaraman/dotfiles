@@ -1,20 +1,27 @@
 -- print('test')
 require("flutter-tools").setup {
     debugger = { -- integrate with nvim dap + install dart code debugger
-        -- run_via_dap = false, -- use dap instead of a plenary job to run flutter apps
+        run_via_dap = true, -- use dap instead of a plenary job to run flutter apps
         enabled = true,
         register_configurations = function(paths)
+            print('config dap')
+            -- for k, v in pairs(paths) do
+            --     print(k)
+            --     print(v)
+            -- end
+            print(paths["dart_sdk"])
             -- TODO configure this
             require("dap").configurations.dart = { {
                 type = "dart",
                 request = "launch",
                 name = "Launch flutter",
                 flutterMode = "debug",
-                -- dartSdkPath = os.getenv('HOME').."/flutter/bin/cache/dart-sdk/",
-                -- flutterSdkPath = os.getenv('HOME').."/flutter",
+                -- dartSdkPath = paths["dart_sdk"],
+                -- flutterSdkPath = paths["flutter_sdk"],
                 program = "${workspaceFolder}/lib/main.dart",
                 cwd = "${workspaceFolder}",
             } }
+            require("dap.ext.vscode").load_launchjs()
         end,
     },
     fvm = true,
@@ -29,7 +36,7 @@ require("flutter-tools").setup {
         -- },
 
         on_attach = function(client, bufnr)
-            print("dart attached")
+            -- print("dart attached")
             -- Enable completion triggered by <c-x><c-o>
             -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 

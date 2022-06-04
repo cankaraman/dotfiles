@@ -15,3 +15,6 @@ HISTSIZE=10000
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export EDITOR="/opt/homebrew/bin/nvim"
+
+alias vim="nvim"
+alias vc="cd ~/.config/nvim && nvim init.vim"
