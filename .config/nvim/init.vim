@@ -1,3 +1,4 @@
+"undotree
 "use yadm for dotfiles
 "add mappings for yadm commands
 "also install ripgrep
@@ -36,6 +37,8 @@ Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'seanbreckenridge/yadm-git.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
 "autocomplete plugins
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -76,39 +79,13 @@ call plug#end()
 
 let g:gruvbox_italic=1
 colorscheme gruvbox
-set tabstop=4 softtabstop=4 expandtab shiftwidth=4 smarttab smartindent
-set exrc
-" set guicursor=
-set number
-set relativenumber
-set nohlsearch
-set hidden
-set noerrorbells
-set nowrap
-set ignorecase
-
-
-set smartcase
-
-set noswapfile
-set nobackup
-set undodir=~/.vim/undodir
-
-set incsearch
-set scrolloff=8
-set completeopt=menuone,noinsert,noselect
-set signcolumn=yes
-set colorcolumn=80
-set cmdheight=2
-set splitright
-set pastetoggle=<F2>
-set mouse=a
 hi SpellBad cterm=underline
 
 hi! link Operator GruvboxRed
 
 "mappings for all filetypes {{{
-nnoremap <leader>rt :UndotreeToggle<CR>
+set undodir=~/.vim/undodir
+nnoremap <leader>u :UndotreeToggle<CR>
 inoremap jk <ESC>
 let mapleader = " "
 inoremap <C-r><C-r> <C-r>"
