@@ -9,6 +9,7 @@ nnoremap <leader>ft <cmd>Telescope<cr>
 "search in buffer's directory
 nnoremap <leader>fdf <cmd>lua require('telescope.builtin').find_files{ search_dirs={"%:h"} }<cr>
 nnoremap <leader>fdg <cmd>lua require('telescope.builtin').live_grep{ search_dirs={"%:h"} }<cr>
+nnoremap <leader>fds <cmd>lua require('telescope.builtin').live_grep{ search_dirs={"%:p"} }<cr>
 lua << EOF
 require("telescope").load_extension "file_browser"
 
