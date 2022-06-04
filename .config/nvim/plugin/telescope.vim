@@ -6,6 +6,9 @@ nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 nnoremap <leader>ft <cmd>Telescope<cr>
 
+"search in buffer's directory
+nnoremap <leader>fdf <cmd>lua require('telescope.builtin').find_files{ search_dirs={"%:h"} }<cr>
+nnoremap <leader>fdg <cmd>lua require('telescope.builtin').live_grep{ search_dirs={"%:h"} }<cr>
 lua << EOF
 require("telescope").load_extension "file_browser"
 

@@ -35,7 +35,7 @@ Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'seanbreckenridge/yadm-git.vim'
 Plug 'airblade/vim-gitgutter'
-
+Plug 'kosayoda/nvim-lightbulb'
 "autocomplete plugins
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
