@@ -1,4 +1,5 @@
 "use chezmoi
+"use chezmoi2
 "also install ripgrep
 " Download vim-plug and pathogen when vim runs for the very first time {{{
 " if empty(glob("~/.vim/autoload/plug.vim"))
