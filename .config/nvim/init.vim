@@ -35,7 +35,6 @@ Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'seanbreckenridge/yadm-git.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'kosayoda/nvim-lightbulb'
 "autocomplete plugins
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -59,6 +58,7 @@ Plug 'saadparwaiz1/cmp_luasnip'
 " Plug 'dcampos/nvim-snippy'
 " Plug 'dcampos/cmp-snippy'
 
+"Plug 'kosayoda/nvim-lightbulb'
 "Plug 'Yggdroot/indentLine'
 "Plug 'tpope/vim-eunuch'
 "Plug 'michaeljsmith/vim-indent-object'
@@ -86,7 +86,6 @@ set noerrorbells
 set nowrap
 set ignorecase
 
-nnoremap <leader>ud :UndotreeToggle<CR>
 
 set smartcase
 
@@ -108,6 +107,7 @@ hi SpellBad cterm=underline
 hi! link Operator GruvboxRed
 
 "mappings for all filetypes {{{
+nnoremap <leader>rt :UndotreeToggle<CR>
 inoremap jk <ESC>
 let mapleader = " "
 inoremap <C-r><C-r> <C-r>"
