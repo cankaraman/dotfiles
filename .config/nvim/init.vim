@@ -1,7 +1,4 @@
-"undotree
-"use yadm for dotfiles
-"add mappings for yadm commands
-"also install ripgrep
+"TODO install scripts for ripgrep, yadm, vim-plug, maybe ag-silver-searcher
 " Download vim-plug and pathogen when vim runs for the very first time {{{
 " if empty(glob("~/.vim/autoload/plug.vim"))
     " execute '!mkdir -p .vim/autoload && curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
@@ -45,23 +42,20 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
+" For luasnip users.
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'nvim-lua/lsp_extensions.nvim'
 
 " For vsnip users.
 " Plug 'hrsh7th/cmp-vsnip'
 " Plug 'hrsh7th/vim-vsnip'
-
-" For luasnip users.
-Plug 'L3MON4D3/LuaSnip'
-Plug 'saadparwaiz1/cmp_luasnip'
-
 " For ultisnips users.
 " Plug 'SirVer/ultisnips'
 " Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-
 " For snippy users.
 " Plug 'dcampos/nvim-snippy'
 " Plug 'dcampos/cmp-snippy'
-
 "Plug 'kosayoda/nvim-lightbulb'
 "Plug 'Yggdroot/indentLine'
 "Plug 'tpope/vim-eunuch'
@@ -75,19 +69,26 @@ Plug 'saadparwaiz1/cmp_luasnip'
 call plug#end()
 "execute pathogen#infect()
 "call pathogen#helptags()
-
-
+"init right after plugs {{{
+let mapleader = " "
 let g:gruvbox_italic=1
 colorscheme gruvbox
 hi SpellBad cterm=underline
-
 hi! link Operator GruvboxRed
-
-"mappings for all filetypes {{{
 set undodir=~/.vim/undodir
+
+"}}}
+
+
 nnoremap <leader>u :UndotreeToggle<CR>
+"move text up and down in vmode
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '>-2<CR>gv=gv
+
+
+
+"old mappings for all filetypes {{{
 inoremap jk <ESC>
-let mapleader = " "
 inoremap <C-r><C-r> <C-r>"
 
 iabbrev retrun return
@@ -159,6 +160,7 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 "}}}
 
+"autocommads and functions {{{
 augroup jumpToLastPosition
     autocmd!
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -195,6 +197,7 @@ function! MyLastWindow()
     endif
   endif
 endfunction
+"}}}
 
 ""vimscript topics to study {{{
 " setlocal foldmethod=indent

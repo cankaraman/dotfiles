@@ -34,6 +34,13 @@ require("flutter-tools").setup {
         --   virtual_text_str = "■", -- the virtual text character to highlight
         --
         -- },
+        init_options = {
+            closingLabels = true,
+        },
+        callbacks = {
+            -- get_callback can be called with or without arguments
+            ['dart/textDocument/publishClosingLabels'] = require('lsp_extensions.dart.closing_labels').get_callback({ highlight = "Special", prefix = " >> " }),
+        },
 
         on_attach = function(client, bufnr)
             -- print("dart attached")

@@ -21,3 +21,4 @@ set mouse=a
 
 set noswapfile
 set nobackup
+set foldmethod=marker
