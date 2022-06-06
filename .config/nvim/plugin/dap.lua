@@ -9,3 +9,8 @@ end
 dap.listeners.before.event_exited["dapui_config"] = function()
     dapui.close()
 end
+
+-- TODO further configure this
+-- TODO nerdfonts
+vim.api.nvim_set_keymap('n', '<leader>tb', "<cmd>lua require('dap').toggle_breakpoint()<cr>", { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>co', "<cmd>lua require('dap').continue()<cr>", { noremap = true })

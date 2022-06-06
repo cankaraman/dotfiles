@@ -18,3 +18,4 @@ export EDITOR="/opt/homebrew/bin/nvim"
 
 alias vim="nvim"
 alias vc="cd ~/.config/nvim && nvim init.vim"
+alias dm="cd ~/StudioProjects/demo_app_classic && nvim lib/app_wrapper.dart"

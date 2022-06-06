@@ -4,13 +4,6 @@ require("flutter-tools").setup {
         run_via_dap = true, -- use dap instead of a plenary job to run flutter apps
         enabled = true,
         register_configurations = function(paths)
-            print('config dap')
-            -- for k, v in pairs(paths) do
-            --     print(k)
-            --     print(v)
-            -- end
-            print(paths["dart_sdk"])
-            -- TODO configure this
             require("dap").configurations.dart = { {
                 type = "dart",
                 request = "launch",
@@ -61,7 +54,9 @@ require("flutter-tools").setup {
             vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', Opts_for_dart_maps)
             vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', Opts_for_dart_maps)
             vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', Opts_for_dart_maps)
-            vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', Opts_for_dart_maps)
+            vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>fa', '<cmd>lua vim.lsp.buf.formatting()<CR>', Opts_for_dart_maps)
+            vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', { noremap = true, silent = true })
+            vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>tr', '<cmd>TroubleToggle<cr>', { noremap = true, silent = true })
         end
 
         -- capabilities = my_custom_capabilities -- e.g. lsp_status capabilities

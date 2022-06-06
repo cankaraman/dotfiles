@@ -1,4 +1,5 @@
-"TODO install scripts for ripgrep, yadm, vim-plug, maybe ag-silver-searcher
+"TODO install scripts for ripgrep, yadm, vim-plug, maybe ag-silver-searcher,
+" nerd-fonts, language servers
 " Download vim-plug and pathogen when vim runs for the very first time {{{
 " if empty(glob("~/.vim/autoload/plug.vim"))
     " execute '!mkdir -p .vim/autoload && curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
@@ -23,6 +24,7 @@ Plug 'tpope/vim-surround'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'neovim/nvim-lspconfig'
+Plug 'folke/trouble.nvim'
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-fugitive'
 Plug 'bkad/CamelCaseMotion'
@@ -35,6 +37,12 @@ Plug 'windwp/nvim-autopairs'
 Plug 'seanbreckenridge/yadm-git.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'flazz/vim-colorschemes'
+Plug 'puremourning/vimspector'
+
+"icons. somehow both is needed
+Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
 
 "autocomplete plugins
 Plug 'hrsh7th/cmp-nvim-lsp'
