@@ -19,8 +19,8 @@ set splitright
 set pastetoggle=<F2>
 set mouse=a
 
-set noswapfile
-set nobackup
+" set noswapfile
+" set nobackup
 set foldmethod=marker
 set encoding=utf8
 " set guifont=DroidSansMono_Nerd_Font:h11

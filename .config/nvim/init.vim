@@ -13,7 +13,10 @@
 
 call plug#begin('~/.vim/plugged')
 Plug 'akinsho/flutter-tools.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" use this until update dart seg fault
+Plug 'RobertBrunhage/nvim-treesitter', {'do': ':TSUpdate'}
+
 Plug 'tpope/vim-commentary'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'vim-airline/vim-airline'
@@ -205,6 +208,26 @@ function! MyLastWindow()
     endif
   endif
 endfunction
+
+" fu! SaveSess()
+"     execute 'mksession! ' . getcwd() . '/.session.vim'
+" endfunction
+
+" fu! RestoreSess()
+" if filereadable(getcwd() . '/.session.vim')
+"     execute 'so ' . getcwd() . '/.session.vim'
+"     if bufexists(1)
+"         for l in range(1, bufnr('$'))
+"             if bufwinnr(l) == -1
+"                 exec 'sbuffer ' . l
+"             endif
+"         endfor
+"     endif
+" endif
+" endfunction
+
+" autocmd VimLeave * call SaveSess()
+" autocmd VimEnter * nested call RestoreSess()
 "}}}
 
 ""vimscript topics to study {{{
