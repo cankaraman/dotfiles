@@ -12,41 +12,26 @@
 "}}}
 
 call plug#begin('~/.vim/plugged')
+if !exists('g:vscode')
 Plug 'akinsho/flutter-tools.nvim'
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " use this until update dart seg fault
 Plug 'RobertBrunhage/nvim-treesitter', {'do': ':TSUpdate'}
-
-Plug 'tpope/vim-commentary'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'justinmk/vim-sneak'
 Plug 'gruvbox-community/gruvbox'
-Plug 'tpope/vim-surround'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'folke/trouble.nvim'
-Plug 'mbbill/undotree'
-Plug 'tpope/vim-fugitive'
-Plug 'bkad/CamelCaseMotion'
-Plug 'tpope/vim-repeat'
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-telescope/telescope-ui-select.nvim'
-Plug 'windwp/nvim-autopairs'
-Plug 'seanbreckenridge/yadm-git.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'flazz/vim-colorschemes'
 Plug 'puremourning/vimspector'
-
-"icons. somehow both is needed
-Plug 'ryanoasis/vim-devicons'
-Plug 'kyazdani42/nvim-web-devicons'
-
 "autocomplete plugins
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -57,6 +42,22 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'windwp/nvim-autopairs'
+"icons. somehow both is needed
+Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'tpope/vim-commentary'
+endif
+Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-surround'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'mbbill/undotree'
+Plug 'tpope/vim-fugitive'
+Plug 'bkad/CamelCaseMotion'
+Plug 'seanbreckenridge/yadm-git.vim'
+Plug 'tpope/vim-repeat'
+
+
 
 " For vsnip users.
 " Plug 'hrsh7th/cmp-vsnip'
@@ -82,10 +83,18 @@ call plug#end()
 "call pathogen#helptags()
 "init right after plugs {{{
 let mapleader = " "
+
+if !exists('g:vscode')
 let g:gruvbox_italic=1
 colorscheme gruvbox
 hi SpellBad cterm=underline
 hi! link Operator GruvboxRed
+endif
+
+if exists('g:vscode')
+"todo add vscode mappings
+endif
+
 set undodir=~/.vim/undodir
 
 "}}}

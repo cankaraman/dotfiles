@@ -1,3 +1,4 @@
+if !exists('g:vscode')
 nnoremap <silent> <C-n> :call ToggleNERDTreeWithRefresh()<cr>
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -9,4 +10,4 @@ fun! ToggleNERDTreeWithRefresh()
         call feedkeys("R")
     endif
 endf
-
+endif

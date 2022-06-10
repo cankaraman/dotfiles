@@ -1,3 +1,4 @@
+if !exists('g:vscode')
 " Using Lua functions
 nnoremap <leader>o <cmd>lua require('telescope.builtin').find_files({hidden=true})<cr>
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden=true})<cr>
@@ -21,3 +22,4 @@ vim.api.nvim_set_keymap(
 )
 require("telescope").load_extension("ui-select")
 EOF
+endif
