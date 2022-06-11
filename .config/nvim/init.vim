@@ -56,6 +56,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'bkad/CamelCaseMotion'
 Plug 'seanbreckenridge/yadm-git.vim'
 Plug 'tpope/vim-repeat'
+Plug 'unblevable/quick-scope'
 
 
 
@@ -102,8 +103,8 @@ set undodir=~/.vim/undodir
 
 nnoremap <leader>u :UndotreeToggle<CR>
 "move text up and down in vmode
-vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '>-2<CR>gv=gv
+vnoremap J :m '>+1<CR>gv=gv
 
 
 
