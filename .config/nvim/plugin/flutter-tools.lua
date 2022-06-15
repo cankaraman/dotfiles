@@ -8,13 +8,19 @@ if not vim.g.vscode then
                 require("dap").configurations.dart = { {
                     type = "dart",
                     request = "launch",
-                    name = "Launch flutter",
+                    name = "nvim flutter launcher",
                     flutterMode = "debug",
                     -- dartSdkPath = paths["dart_sdk"],
                     -- flutterSdkPath = paths["flutter_sdk"],
                     program = "${workspaceFolder}/lib/main.dart",
                     cwd = "${workspaceFolder}",
+                    args = { "--no-sound-null-safety" }
                 } }
+                require("dap").adapters.dart = {
+                    type = "executable",
+                    command = "node",
+                    args = { "/Users/cankaraman/StudioProjects/Dart-Code/out/dist/debug.js", "flutter" }
+                }
                 require("dap.ext.vscode").load_launchjs()
             end,
         },
