@@ -1,110 +1,42 @@
-"TODO install scripts for ripgrep, yadm, vim-plug, maybe ag-silver-searcher,
-" nerd-fonts, language servers
-" Download vim-plug and pathogen when vim runs for the very first time {{{
-" if empty(glob("~/.vim/autoload/plug.vim"))
-    " execute '!mkdir -p .vim/autoload && curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
-    " execute sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       " https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-" endif
-" if empty(glob("~/.vim/autoload/pathogen.vim"))
-    " execute '!mkdir -p ~/.vim/autoload ~/.vim/bundle && curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim'
-" endif
-"}}}
 
 call plug#begin('~/.vim/plugged')
-if !exists('g:vscode')
-Plug 'akinsho/flutter-tools.nvim'
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-" use this until update dart seg fault
-Plug 'RobertBrunhage/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'gruvbox-community/gruvbox'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'neovim/nvim-lspconfig'
-Plug 'folke/trouble.nvim'
-Plug 'mfussenegger/nvim-dap'
-Plug 'rcarriga/nvim-dap-ui'
-Plug 'nvim-telescope/telescope-file-browser.nvim'
-Plug 'nvim-telescope/telescope-ui-select.nvim'
-Plug 'airblade/vim-gitgutter'
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-Plug 'flazz/vim-colorschemes'
-Plug 'puremourning/vimspector'
-"autocomplete plugins
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
-" For luasnip users.
-Plug 'L3MON4D3/LuaSnip'
-Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'nvim-lua/lsp_extensions.nvim'
-Plug 'windwp/nvim-autopairs'
-"icons. somehow both is needed
-Plug 'ryanoasis/vim-devicons'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'tpope/vim-commentary'
-endif
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-fugitive'
-Plug 'bkad/CamelCaseMotion'
 Plug 'seanbreckenridge/yadm-git.vim'
 Plug 'tpope/vim-repeat'
 Plug 'unblevable/quick-scope'
 
-
-
-" For vsnip users.
-" Plug 'hrsh7th/cmp-vsnip'
-" Plug 'hrsh7th/vim-vsnip'
-" For ultisnips users.
-" Plug 'SirVer/ultisnips'
-" Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-" For snippy users.
-" Plug 'dcampos/nvim-snippy'
-" Plug 'dcampos/cmp-snippy'
-"Plug 'kosayoda/nvim-lightbulb'
-"Plug 'Yggdroot/indentLine'
-"Plug 'tpope/vim-eunuch'
-"Plug 'michaeljsmith/vim-indent-object'
-"Plug 'honza/vim-snippets'
-"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-"Plug 'junegunn/fzf.vim'
-"Plug 'jiangmiao/auto-pairs'
-"Plug 'adelarsq/vim-matchit'
-"Plug 'sheerun/vim-polyglot'
 call plug#end()
-"execute pathogen#infect()
-"call pathogen#helptags()
-"init right after plugs {{{
 let mapleader = " "
 
-if !exists('g:vscode')
-let g:gruvbox_italic=1
-colorscheme gruvbox
-hi SpellBad cterm=underline
-hi! link Operator GruvboxRed
-endif
 
 if exists('g:vscode')
-"todo add vscode mappings
+  xmap gc  <Plug>VSCodeCommentary
+  nmap gc  <Plug>VSCodeCommentary
+  omap gc  <Plug>VSCodeCommentary
+  nmap gcc <Plug>VSCodeCommentaryLine
+
+
+  nnoremap z= <Cmd>call VSCodeNotify('keyboard-quickfix.openQuickFix')<CR>
+  " nnoremap <space>t <Cmd>q<cr>
+  nnoremap gr <Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>
+  nnoremap gi <Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>
+
+  highlight QuickScopePrimary guifg='#c079f2' gui=underline ctermfg=155 cterm=underline
+  highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
+
 endif
 
 set undodir=~/.vim/undodir
 
-"}}}
 
-
-nnoremap <leader>u :UndotreeToggle<CR>
+" nnoremap <leader>u :UndotreeToggle<CR>
 "move text up and down in vmode
-vnoremap K :m '>-2<CR>gv=gv
-vnoremap J :m '>+1<CR>gv=gv
+" vnoremap K :m '>-2<CR>gv=gv
+" vnoremap J :m '>+1<CR>gv=gv
 
 
 
@@ -172,21 +104,37 @@ nnoremap <C-H> <C-W><C-H>
 
 "quick vimrc edit
 nnoremap <leader>v :split $MYVIMRC<CR>
-"augroup myvimrc
-"    autocmd!
-"    autocmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc source $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-"augroup end
-"source vimrc manualy
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-"}}}
 
+set number
+set relativenumber
+set nohlsearch
+set hidden
+set noerrorbells
+set nowrap
+set ignorecase
+set smartcase
+set incsearch
+set scrolloff=8
+set completeopt=menuone,noinsert,noselect
+set signcolumn=yes
+set colorcolumn=80
+set cmdheight=2
+set splitright
+set pastetoggle=<F2>
+set mouse=a
+
+" set noswapfile
+" set nobackup
+set foldmethod=marker
+set encoding=utf8
 "autocommads and functions {{{
-augroup jumpToLastPosition
-    autocmd!
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-augroup end
-
+" augroup jumpToLastPosition
+"     autocmd!
+"     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+" augroup end
+"
 function! <SID>StripTrailingWhitespaces()
     let l = line(".")
     let c = col(".")
@@ -218,45 +166,4 @@ function! MyLastWindow()
     endif
   endif
 endfunction
-
-" fu! SaveSess()
-"     execute 'mksession! ' . getcwd() . '/.session.vim'
-" endfunction
-
-" fu! RestoreSess()
-" if filereadable(getcwd() . '/.session.vim')
-"     execute 'so ' . getcwd() . '/.session.vim'
-"     if bufexists(1)
-"         for l in range(1, bufnr('$'))
-"             if bufwinnr(l) == -1
-"                 exec 'sbuffer ' . l
-"             endif
-"         endfor
-"     endif
-" endif
-" endfunction
-
-" autocmd VimLeave * call SaveSess()
-" autocmd VimEnter * nested call RestoreSess()
-"}}}
-
-""vimscript topics to study {{{
-" setlocal foldmethod=indent
-" setlocal foldlevel=1
-" gv visual | z= spelling | \r \e expr-quote
-"
-" help various-motions
-" help sign-support
-" help virtualedit
-" help map-alt-keys
-" help error-messages
-" help development
-" help tips
-" help 24.8
-" help 24.9
-" help usr_12.txt
-" help usr_26.txt
-" help usr_32.txt
-" help usr_42.txt
-" }}}
 

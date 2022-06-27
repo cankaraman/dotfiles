@@ -16,6 +16,8 @@ HISTSIZE=10000
 
 export EDITOR="/opt/homebrew/bin/nvim"
 
+alias nvim="XDG_CONFIG_HOME=~/.config/astroconfig nvim"
 alias vim="nvim"
 alias vc="cd ~/.config/nvim && nvim init.vim"
+alias vx="cd ~ && nvim .zshrc"
 alias dm="cd ~/StudioProjects/demo_app_classic && nvim lib/app_wrapper.dart"
