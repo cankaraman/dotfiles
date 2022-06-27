@@ -1,3 +1,4 @@
+--hey
 local config = {
 
   -- Set colorscheme
