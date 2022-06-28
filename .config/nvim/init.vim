@@ -25,6 +25,12 @@ if exists('g:vscode')
   nnoremap gr <Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>
   nnoremap gi <Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>
 
+  nnoremap <leader>ff <Cmd>call VSCodeNotify('workbench.action.quickOpenNavigateNextInFilePicker')<CR>
+  nnoremap <leader>fw <Cmd>call VSCodeNotify('workbench.action.findInFiles')<CR>
+  nnoremap <leader>fa <Cmd>call VSCodeNotify('workbench.action.quickOpenNavigatePreviousInFilePicker')<CR>
+  nnoremap <leader>o <Cmd>call VSCodeNotify('workbench.action.quickOpenNavigateNextInFilePicker')<CR>
+  nnoremap <leader>p <Cmd>call VSCodeNotify('workbench.action.quickOpenNavigatePreviousInFilePicker')<CR>
+
   highlight QuickScopePrimary guifg='#c079f2' gui=underline ctermfg=155 cterm=underline
   highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
 
