@@ -33,6 +33,7 @@ local config = {
       {'tpope/vim-repeat'},
       {'unblevable/quick-scope'},
       {'mfussenegger/nvim-dap'},
+      {'Neevash/awesome-flutter-snippets'},
       { "nvim-telescope/telescope-file-browser.nvim",
       after = "telescope.nvim",
       config = function()
@@ -185,6 +186,15 @@ local config = {
     },
   },
 
+  -- LuaSnip Options
+  luasnip = {
+    -- Add paths for including more VS Code style snippets in luasnip
+    vscode_snippet_paths = {vim.fn.stdpath('data') .. "site/pack/packer/start/awesome-flutter-snippets"},
+    -- Extend filetypes
+    filetype_extend = {
+      javascript = { "javascriptreact" },
+    },
+  },
   cmp = {
     source_priority = {
       cmdline = 200
@@ -251,6 +261,7 @@ local config = {
             name="buffer actions"
         },
           -- which-key registration table for normal mode, leader prefix
+          ["gm"] = { ":Gitsigns diffthis master", "Diff with branch" },
           ["fa"] = { "<cmd>Telescope<cr>", "Telescope all" },
           ["ft"] = { "<cmd>Telescope file_browser<cr>", "Telescope file tree" },
           ["fc"] = { "<cmd>Telescope commands<cr>", "Search commands" },
@@ -301,6 +312,8 @@ local config = {
     vim.keymap.set("o", "H", "^", { noremap = true, desc = "Beginning of the line" })
     vim.keymap.set("v", "L", "$", { noremap = true, desc = "End of the line" })
     vim.keymap.set("v", "H", "^", { noremap = true, desc = "Beginning of the line" })
+
+    vim.keymap.set("v", "<c-x>", "<esc>wa", { noremap = true, desc = "append to next word" })
 
 
     map("n", "<leader-Up>", function()
