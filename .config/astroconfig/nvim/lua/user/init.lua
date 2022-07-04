@@ -37,6 +37,7 @@ local config = {
       { "nvim-telescope/telescope-file-browser.nvim",
       after = "telescope.nvim",
       config = function()
+        --TODO better configure this
         print('file browswer')
         require("telescope").load_extension "file_browser"
       end,
@@ -74,7 +75,7 @@ local config = {
       config =function ()
         local dap, dapui = require("dap"), require("dapui")
         dapui.setup()
-        dap.listeners.before.evet_stopped["dapui_config"] = function()
+        dap.listeners.before.event_stopped["dapui_config"] = function()
           dapui.open()
         end
         dap.listeners.before.event_terminated["dapui_config"] = function()
@@ -94,13 +95,20 @@ local config = {
           require("flutter-tools").setup {
             lsp = astronvim.lsp.server_settings "dartls", -- get the server settings and built in capabilities/on_attach
             debugger = { -- integrate with nvim dap + install dart code debugger
-            run_via_dap = false, -- use dap instead of a plenary job to run flutter apps
+            run_via_dap = true, -- use dap instead of a plenary job to run flutter apps
             enabled = true,
             register_configurations = function(paths)
               print('dap registered')
-              require("dap.ext.vscode").load_launchjs()
 
-              require("dap").configurations.dart = { {
+              local dap = require("dap")
+
+              dap.adapters.dart = {
+                type = "executable",
+                command = "node",
+                args = { "/Users/cankaraman/StudioProjects/Dart-Code/out/dist/debug.js", "flutter" }
+              }
+
+              dap.configurations.dart = { {
                 type = "dart",
                 request = "launch",
                 name = "nvim flutter launcher",
@@ -112,11 +120,8 @@ local config = {
                 args = { "--no-sound-null-safety" }
               } }
 
-              require("dap").adapters.dart = {
-                type = "executable",
-                command = "node",
-                args = { "/Users/cankaraman/StudioProjects/Dart-Code/out/dist/debug.js", "flutter" }
-              }
+
+              require("dap.ext.vscode").load_launchjs()
             end,
           },
           fvm = true,
@@ -269,17 +274,20 @@ local config = {
           ["fdw"] = { "<cmd>lua require('telescope.builtin').live_grep{ search_dirs={'%:p'} }<cr>", "Search word in the current buffer" },
           ["v"] = { "<cmd>split $MYVIMRC<cr>", "Open init.lua" },
           ["z"] = { "<cmd>ZenMode<cr>", "Toggle ZenMode" },
-          -- ["r"] ={"", "Flutter"},
-        ["r"] = {
-          ["n"] = { "<cmd>FlutterRun --no-sound-null-safety<cr>", "Flutter run --no-sound-null-safety" },
-          ["s"] = { "<cmd>FlutterRun<cr>", "Flutter run" },
-          ["q"] = { "<cmd>FlutterQuit<cr>", "Flutter quit" },
-          ["c"] = { "<cmd>FlutterCopyProfilerUrl<cr>", "Flutter copy devtools url" },
-          ["r"] = { "<cmd>FlutterReload<cr>", "Flutter reload" },
-          ["R"] = { "<cmd>FlutterRestart<cr>", "Flutter restart" },
-          ["e"] = { "<cmd>FlutterEmulators<cr>", "Flutter emulators" },
-          name="Flutter"
-        }
+          ["r"] = {
+            ["n"] = { "<cmd>FlutterRun --no-sound-null-safety<cr>", "Flutter run --no-sound-null-safety" },
+            ["s"] = { "<cmd>FlutterRun<cr>", "Flutter run" },
+            ["q"] = { "<cmd>FlutterQuit<cr>", "Flutter quit" },
+            ["c"] = { "<cmd>FlutterCopyProfilerUrl<cr>", "Flutter copy devtools url" },
+            ["r"] = { "<cmd>FlutterReload<cr>", "Flutter reload" },
+            ["R"] = { "<cmd>FlutterRestart<cr>", "Flutter restart" },
+            ["e"] = { "<cmd>FlutterEmulators<cr>", "Flutter emulators" },
+            ["b"] = { "<cmd>lua require'dap'.set_exception_breakpoints({})<cr>", "Disable exception breakpoints" },
+            ["d"] = { "<cmd>lua require('dapui').toggle()<cr>", "Toggle DAP-UI" },
+            ["o"] = { "<cmd>DapStepOver<cr>", "Step over" },
+            ["p"] = { "<cmd>DapContinue<cr>", "Pause / Continue" },
+            name="Flutter"
+          }
         },
       },
     },
@@ -314,6 +322,7 @@ local config = {
     vim.keymap.set("v", "H", "^", { noremap = true, desc = "Beginning of the line" })
 
     vim.keymap.set("v", "<c-x>", "<esc>wa", { noremap = true, desc = "append to next word" })
+    vim.keymap.set("v", "<c-b>", "<esc>wa", { noremap = true, desc = "append to next word" })
 
 
     map("n", "<leader-Up>", function()
@@ -361,7 +370,7 @@ local config = {
     vim.api.nvim_set_option('cmdheight', 2)
     vim.api.nvim_set_option('scrolloff', 8)
     vim.api.nvim_set_option('splitright', true)
-    vim.api.nvim_set_option('colorcolumn', "80")
+    vim.api.nvim_set_option('colorcolumn', "81")
 
     -- to run vimscript
     -- vim.cmd [[
