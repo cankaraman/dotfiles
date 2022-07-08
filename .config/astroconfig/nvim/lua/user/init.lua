@@ -23,6 +23,7 @@ local config = {
     init = {
       -- You can disable default plugins as follows:
       -- ["goolord/alpha-nvim"] = { disable = true },
+      ["max397574/better-escape.nvim"] = { disable = true },
       {'justinmk/vim-sneak'},
       {'tpope/vim-surround'},
       {'nvim-lua/plenary.nvim'},
@@ -128,6 +129,7 @@ local config = {
         }
       end,
     },
+  }, --init end
     -- { "andweeb/presence.nvim" },
     -- You can also add new plugins here as well:
     -- { "andweeb/presence.nvim" },
@@ -146,7 +148,6 @@ local config = {
           --   cmd = "",
           --   event = "",
           -- },
-        },
         ["hrsh7th/cmp-cmdline"] = {
           after = "nvim-cmp",
           config = function()
@@ -202,6 +203,10 @@ local config = {
   },
   cmp = {
     source_priority = {
+      nvim_lsp = 1000,
+      luasnip = 750,
+      buffer = 500,
+      path = 250,
       cmdline = 200
 
     }
@@ -262,7 +267,10 @@ local config = {
           ["b"] = {
             ["a"] = { "<cmd>%bd|e#<cr>", "Close all buffers except active" },
             ["q"] = { "<cmd>cclose<cr>", "Close quickfix" },
-            ["c"] = { "<cmd>bd<cr>", "Close active buffer" },
+            -- ["c"] = { "<cmd>bd<cr>", "Close active buffer" },
+            ["o"] = { "<cmd>on<cr>", "close all windows except active" },
+            ["c"] = { "<cmd>redir @+ | echo expand('%') | redir END<cr><cmd> echo 'Copied the active buffer path: ' . expand('%')<cr>", "copy buffer path" },
+            ["p"] = { "<cmd>echom expand('%')<cr>", "print the active buffer path" },
             name="buffer actions"
         },
           -- which-key registration table for normal mode, leader prefix
@@ -286,6 +294,7 @@ local config = {
             ["d"] = { "<cmd>lua require('dapui').toggle()<cr>", "Toggle DAP-UI" },
             ["o"] = { "<cmd>DapStepOver<cr>", "Step over" },
             ["p"] = { "<cmd>DapContinue<cr>", "Pause / Continue" },
+            ["t"] = { "<cmd>DapToggleBreakpoint<cr>", "Pause / Continue" },
             name="Flutter"
           }
         },
@@ -299,30 +308,32 @@ local config = {
     --
     local map = vim.keymap.set
     local opts = { noremap = true}
-    vim.keymap.set("c", "<C-r><C-r>", "<C-r>\"", opts)
-    -- vim.keymap.set("n", "Y", "yg_", opts)
-    vim.keymap.set("n", "<C-g>", ":%s//gc<left><left><left>", opts)
-    vim.keymap.set("v", "<C-c>", "\"+y", opts)
-    vim.keymap.set("v", "p", "\"_dP", opts)
-    vim.keymap.set("n", "<leader>a", "gg<S-v>G", { noremap = true, desc = "Select all" })
+    map("c", "<C-r><C-r>", "<C-r>\"", opts)
+    -- map("n", "Y", "yg_", opts)
+    map("n", "<C-g>", ":%s//gc<left><left><left>", opts)
+    map("v", "<C-c>", "\"+y", opts)
+    map("v", "p", "\"_dP", opts)
+    map("n", "<leader>a", "gg<S-v>G", { noremap = true, desc = "Select all" })
 
-    vim.keymap.set("i", "<C-l>", "<right>", opts)
-    vim.keymap.set("i", "<C-h>", "<left>", opts)
+    map("i", "jk", "<esc>", opts)
+
+    map("i", "<C-l>", "<right>", opts)
+    map("i", "<C-h>", "<left>", opts)
     -- might be problematic
-    vim.keymap.set("i", "<C-k>", "<up>", opts)
-    vim.keymap.set("i", "<C-j>", "<down>", opts)
+    map("i", "<C-k>", "<up>", opts)
+    map("i", "<C-j>", "<down>", opts)
 
-    vim.keymap.set("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>", { noremap = true, desc = "Next buffer tab" })
-    vim.keymap.set("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { noremap = true, desc = "Previous buffer tab" })
-    vim.keymap.set("n", "L", "$", { noremap = true, desc = "End of the line" })
-    vim.keymap.set("n", "H", "^", { noremap = true, desc = "Beginning of the line" })
-    vim.keymap.set("o", "L", "$", { noremap = true, desc = "End of the line" })
-    vim.keymap.set("o", "H", "^", { noremap = true, desc = "Beginning of the line" })
-    vim.keymap.set("v", "L", "$", { noremap = true, desc = "End of the line" })
-    vim.keymap.set("v", "H", "^", { noremap = true, desc = "Beginning of the line" })
+    map("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>", { noremap = true, desc = "Next buffer tab" })
+    map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { noremap = true, desc = "Previous buffer tab" })
+    map("n", "L", "$", { noremap = true, desc = "End of the line" })
+    map("n", "H", "^", { noremap = true, desc = "Beginning of the line" })
+    map("o", "L", "$", { noremap = true, desc = "End of the line" })
+    map("o", "H", "^", { noremap = true, desc = "Beginning of the line" })
+    map("v", "L", "$", { noremap = true, desc = "End of the line" })
+    map("v", "H", "^", { noremap = true, desc = "Beginning of the line" })
 
-    vim.keymap.set("v", "<c-x>", "<esc>wa", { noremap = true, desc = "append to next word" })
-    vim.keymap.set("v", "<c-b>", "<esc>wa", { noremap = true, desc = "append to next word" })
+    map("v", "<c-x>", "<esc>wa", { noremap = true, desc = "append to next word" })
+    map("v", "<c-b>", "<esc>wa", { noremap = true, desc = "append to next word" })
 
 
     map("n", "<leader-Up>", function()
