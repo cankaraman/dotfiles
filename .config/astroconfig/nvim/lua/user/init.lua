@@ -356,6 +356,15 @@ local config = {
       pattern = "*",
       command = "silent! lua vim.highlight.on_yank({higroup='IncSearch', timeout=200})",
     })
+
+    vim.api.nvim_create_augroup("comString", { clear = true })
+    vim.api.nvim_create_autocmd("FileType", {
+      desc = "change commentstring for dart",
+      group = "comString",
+      pattern = "dart",
+      command = "setlocal commentstring=//\\ %s",
+    })
+
     vim.api.nvim_command('SessionManager! load_current_dir_session')
 
     -- old sets
