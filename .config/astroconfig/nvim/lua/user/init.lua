@@ -24,6 +24,7 @@ local config = {
       -- You can disable default plugins as follows:
       -- ["goolord/alpha-nvim"] = { disable = true },
       ["max397574/better-escape.nvim"] = { disable = true },
+
       {'justinmk/vim-sneak'},
       {'tpope/vim-surround'},
       {'nvim-lua/plenary.nvim'},
@@ -102,6 +103,8 @@ local config = {
               print('dap registered')
 
               local dap = require("dap")
+              dap.defaults.fallback.exception_breakpoints = {}
+              -- dap.set_exception_breakpoints({})
 
               dap.adapters.dart = {
                 type = "executable",
@@ -255,6 +258,15 @@ local config = {
   ["which-key"] = {
     -- Add bindings
     register_mappings = {
+      v = {
+        ["<leader>"] = {
+          name='LSP',
+          ["l"] =  {
+            ["f"] = { ":lua vim.lsp.buf.range_formatting()<cr>", "Format range" },
+            ["a"] = { ":lua vim.lsp.buf.range_code_action()<cr>", "Code action range" },
+          }
+        }
+      },
       i = {
         ["<C-r>"] = {
           ["<C-r>"] =  {"<C-r>\"", "paste default"}
@@ -264,6 +276,9 @@ local config = {
       n = {
         -- second key is the prefix, <leader> prefixes
         ["<leader>"] = {
+          ["l"] = {
+            ["l"] = { "<S-v>:lua vim.lsp.buf.range_formatting()<cr>", "Format line" },
+          },
           ["b"] = {
             ["a"] = { "<cmd>%bd|e#<cr>", "Close all buffers except active" },
             ["q"] = { "<cmd>cclose<cr>", "Close quickfix" },
@@ -274,9 +289,10 @@ local config = {
             name="buffer actions"
         },
           -- which-key registration table for normal mode, leader prefix
+          -- TODO use vim input
           ["gm"] = { ":Gitsigns diffthis master", "Diff with branch" },
           ["fa"] = { "<cmd>Telescope<cr>", "Telescope all" },
-          ["ft"] = { "<cmd>Telescope file_browser<cr>", "Telescope file tree" },
+          ["ft"] = { "<cmd>lua require 'telescope'.extensions.file_browser.file_browser({respect_gitignore=false})<CR>", "Telescope file tree" },
           ["fc"] = { "<cmd>Telescope commands<cr>", "Search commands" },
           ["fdf"] = { "<cmd>lua require('telescope.builtin').find_files{ search_dirs={'%:h'} }<cr>", "Search file in buffer's directory" },
           ["fdw"] = { "<cmd>lua require('telescope.builtin').live_grep{ search_dirs={'%:p'} }<cr>", "Search word in the current buffer" },
@@ -286,15 +302,17 @@ local config = {
             ["n"] = { "<cmd>FlutterRun --no-sound-null-safety<cr>", "Flutter run --no-sound-null-safety" },
             ["s"] = { "<cmd>FlutterRun<cr>", "Flutter run" },
             ["q"] = { "<cmd>FlutterQuit<cr>", "Flutter quit" },
-            ["c"] = { "<cmd>FlutterCopyProfilerUrl<cr>", "Flutter copy devtools url" },
+            ["u"] = { "<cmd>FlutterCopyProfilerUrl<cr>", "Flutter copy devtools url" },
             ["r"] = { "<cmd>FlutterReload<cr>", "Flutter reload" },
             ["R"] = { "<cmd>FlutterRestart<cr>", "Flutter restart" },
             ["e"] = { "<cmd>FlutterEmulators<cr>", "Flutter emulators" },
-            ["b"] = { "<cmd>lua require'dap'.set_exception_breakpoints({})<cr>", "Disable exception breakpoints" },
+            ["t"] = { "<cmd>lua require'dap'.set_exception_breakpoints({})<cr>", "Disable exception breakpoints" },
+            ["m"] = { "<cmd>lua require'dap'.set_exception_breakpoints()<cr>", "select exception breakpoints" },
             ["d"] = { "<cmd>lua require('dapui').toggle()<cr>", "Toggle DAP-UI" },
             ["o"] = { "<cmd>DapStepOver<cr>", "Step over" },
-            ["p"] = { "<cmd>DapContinue<cr>", "Pause / Continue" },
-            ["t"] = { "<cmd>DapToggleBreakpoint<cr>", "Pause / Continue" },
+            ["c"] = { "<cmd>DapContinue<cr>", "Continue" },
+            ["b"] = { "<cmd>DapToggleBreakpoint<cr>", "Toggle breakpoints" },
+            ["k"] = { "<cmd>lua require('dap').set_breakpoint(vim.fn.input('condition: '))<cr>", "Add conditional breakpoint" },
             name="Flutter"
           }
         },
