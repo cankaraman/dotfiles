@@ -289,6 +289,7 @@ local config = {
             name="buffer actions"
         },
           -- which-key registration table for normal mode, leader prefix
+          -- TODO telescope line numbers for code complete menu
           -- TODO use vim input
           ["gm"] = { ":Gitsigns diffthis master", "Diff with branch" },
           ["fa"] = { "<cmd>Telescope<cr>", "Telescope all" },
