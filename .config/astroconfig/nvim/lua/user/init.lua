@@ -1,6 +1,15 @@
 --hey
 local config = {
 
+  updater = {
+    remote = "origin", -- remote to use
+    channel = "stable", -- "stable" or "nightly"
+    version = "v1.*", -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
+    pin_plugins = nil, -- nil, true, false (nil will pin plugins on stable only)
+    skip_prompts = false, -- skip prompts about breaking changes
+    show_changelog = true, -- show the changelog after performing an update
+  },
+
   -- Set colorscheme
   colorscheme = "default_theme",
 
@@ -35,7 +44,7 @@ local config = {
       {'tpope/vim-repeat'},
       {'unblevable/quick-scope'},
       {'mfussenegger/nvim-dap'},
-      {'Neevash/awesome-flutter-snippets'},
+      {'cankaraman/awesome-flutter-snippets'},
       { "nvim-telescope/telescope-file-browser.nvim",
       after = "telescope.nvim",
       config = function()
@@ -72,6 +81,13 @@ local config = {
         require ("nvim-lastplace").setup()
       end,
     },
+    {"williamboman/nvim-lsp-installer",
+
+      config = function()
+      require("nvim-lsp-installer").setup {}
+    end,
+
+  },
       {'rcarriga/nvim-dap-ui',
       after="nvim-dap",
       config =function ()
@@ -92,7 +108,7 @@ local config = {
       {
         "akinsho/flutter-tools.nvim",
         requires = "nvim-lua/plenary.nvim",
-        after = "nvim-lsp-installer", -- make sure to load after nvim-lsp-installer
+        after = "nvim-lsp-installer", -- make sure to load after mason-tool-installer
         config = function()
           require("flutter-tools").setup {
             lsp = astronvim.lsp.server_settings "dartls", -- get the server settings and built in capabilities/on_attach
@@ -189,6 +205,13 @@ local config = {
     },
     ["nvim-lsp-installer"] = {
       ensure_installed = { "sumneko_lua", "vimls", "dartls" },
+    },
+    ["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
+      ensure_installed = { "sumneko_lua, vimls, dartls" },
+    },
+    -- use mason-tool-installer to configure DAP/Formatters/Linter installation
+    ["mason-tool-installer"] = { -- overrides `require("mason-tool-installer").setup(...)`
+      ensure_installed = { "prettier", "stylua" },
     },
     packer = {
       compile_path = vim.fn.stdpath "config" .. "/lua/packer_compiled.lua",
