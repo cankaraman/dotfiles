@@ -49,7 +49,6 @@ local config = {
       after = "telescope.nvim",
       config = function()
         --TODO better configure this
-        print('file browswer')
         require("telescope").load_extension "file_browser"
       end,
     },
@@ -108,16 +107,17 @@ local config = {
       {
         "akinsho/flutter-tools.nvim",
         requires = "nvim-lua/plenary.nvim",
-        after = "nvim-lsp-installer", -- make sure to load after mason-tool-installer
+        -- after = "lsp",
+        after = { "mason-lspconfig.nvim" },
         config = function()
+            local dart_lsp = astronvim.lsp.server_settings "dartls" -- get the server settings and built in capabilities/on_attach
+            -- dart_lsp.settings.dart.lineLength = 110;
           require("flutter-tools").setup {
-            lsp = astronvim.lsp.server_settings "dartls", -- get the server settings and built in capabilities/on_attach
+            lsp = dart_lsp,
             debugger = { -- integrate with nvim dap + install dart code debugger
             run_via_dap = true, -- use dap instead of a plenary job to run flutter apps
             enabled = true,
             register_configurations = function(paths)
-              print('dap registered')
-
               local dap = require("dap")
               dap.defaults.fallback.exception_breakpoints = {}
               -- dap.set_exception_breakpoints({})
@@ -272,6 +272,10 @@ local config = {
         settings = {
           showTodos = true,
           completeFunctionCalls = true,
+          lineLength = 110,
+          -- dart = {
+            -- lineLength = 110
+          -- }
         },
       },
     },
@@ -316,6 +320,7 @@ local config = {
           -- TODO use vim input
           ["gm"] = { ":Gitsigns diffthis master", "Diff with branch" },
           ["fa"] = { "<cmd>Telescope<cr>", "Telescope all" },
+          ["fu"] = { "<cmd>Telescope grep_string<cr>", "Telescope Under cursor grep" },
           ["ft"] = { "<cmd>lua require 'telescope'.extensions.file_browser.file_browser({respect_gitignore=false})<CR>", "Telescope file tree" },
           ["fc"] = { "<cmd>Telescope commands<cr>", "Search commands" },
           ["fdf"] = { "<cmd>lua require('telescope.builtin').find_files{ search_dirs={'%:h'} }<cr>", "Search file in buffer's directory" },
@@ -352,7 +357,7 @@ local config = {
     local opts = { noremap = true}
     map("c", "<C-r><C-r>", "<C-r>\"", opts)
     -- map("n", "Y", "yg_", opts)
-    map("n", "<C-g>", ":%s//gc<left><left><left>", opts)
+    map("n", "<C-g>", "\"zyiw:%s/<C-r>z//gc<left><left><left>", opts)
     map("v", "<C-c>", "\"+y", opts)
     map("v", "p", "\"_dP", opts)
     map("n", "<leader>a", "gg<S-v>G", { noremap = true, desc = "Select all" })
@@ -432,7 +437,7 @@ local config = {
     vim.api.nvim_set_option('cmdheight', 2)
     vim.api.nvim_set_option('scrolloff', 8)
     vim.api.nvim_set_option('splitright', true)
-    vim.api.nvim_set_option('colorcolumn', "81")
+    vim.api.nvim_set_option('colorcolumn', "111")
 
     -- to run vimscript
     -- vim.cmd [[
